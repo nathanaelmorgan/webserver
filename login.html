@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+    <head>
+        <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
+        <title>Login</title>
+        <style>
+            body {
+                font-family: "Roboto", "Didot", monospace;
+                padding: 20px;
+                margin: 30px;
+            }
+        </style>
+        
+    </head>
+    <body>
+        <h1>Login to the chat server</h1>
+        <p>Please enter the password to log on to the server</p>
+            <input type="password" placeholder="Password" id="passwd" value="">
+            <button type="submit" id="button">Login</button>
+        <script>
+            var keyPressed = function(e) {
+                console.log(e.keyCode);
+                if (e.keyCode === 13) {
+                    sendPass();
+                    password.value = "";
+                }
+                return true;
+            }
+            var passwdHandler = function() {
+                var key1 = this.responseText;
+                console.log("key is " + key1);
+		var windowVar = null;
+                window.location = "http://nathanael.spr.io:9000/chat/?key=" + key1;
+            };
+            var sendPass = function() {
+                var password = document.getElementById("passwd").value;
+                var xhttp = new XMLHttpRequest;
+                xhttp.open("GET", "/passwd?password=" + password);
+                xhttp.addEventListener("load", passwdHandler);
+                xhttp.send();
+                
+            };
+            var keyPressed = function(e) {
+                console.log(e.keyCode);
+                if (e.keyCode === 13) {
+                    sendPass();
+                    document.getElementById("passwd").value = "";
+                }
+                return true;
+            };
+            document.getElementById("passwd").addEventListener("keypress", keyPressed);
+            document.getElementById("button").addEventListener("click", keyPressed);
+        </script>
+    </body>
+</html>
